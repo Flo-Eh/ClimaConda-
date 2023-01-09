@@ -38,7 +38,7 @@ pages = ['Introduction','Data exploration',' Models','Try it yourself !!!' , 'Co
 page = st.sidebar.radio(' ',pages)
 
 #Importation du df sur l'europe 
-df = pd.read_csv('assets/final_df_UE.csv',index_col = 'year')
+df = pd.read_csv('streamlit_app/assets/final_df_UE.csv',index_col = 'year')
 DF = pd.read_csv('assets/final_df_UE.csv',index_col = 'year')
 #df.drop(['Unit','Unnamed: 0'], axis = 1, inplace = True)
 
