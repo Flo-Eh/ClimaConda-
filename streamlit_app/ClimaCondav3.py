@@ -560,7 +560,7 @@ if page == pages[3]:
         def get_df(country: str, sector: str, gas: str) -> pd.DataFrame:
             """ Get and initialize df """
             
-            df = pd.read_csv('final_df_europe.csv')
+            df = pd.read_csv('streamlit_app/assets/final_df_europe.csv')
             df = df.set_index('year')
             df = df[(df['country'] == country) & (df['sector'] == sector) & (df['gas'] == gas)]
             df = df.drop(['Unnamed: 0', 'country', 'sector', 'gas'], axis=1)
