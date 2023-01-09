@@ -278,7 +278,13 @@ if page == pages[2]:
     """
     )
 
-    st.header('Statistical model : ARIMA')
+    st.header('Series analysis')    
+
+    st.write("The decomposition shows no seasonality and no residual:")
+    st.image('streamlit_app/assets/seasonal_decompose.png', width = 500)
+    
+    st.header('Statistical model : ARIMA')     
+
     st.image('streamlit_app/assets/arima.png')
     
     with st.expander("See details"):
@@ -286,9 +292,14 @@ if page == pages[2]:
         - MAE: 0.797
         - RMSE: 0.921
         - MAPE: 0.006
-        - r2: 0.408\n
-        The parameters of the ARIMA model were dermined with a manual grid search:
-        ''')
+        - r2: 0.408''')
+       
+        st.write('''These results were obtained with ARIMA(4,0,5).
+        The Dickey-Fuller test confirmed that the series was stationary but correlation plots were difficult to interpret:''')
+
+        st.image('streamlit_app/assets/correlation_plots.png', width= 1000)
+
+        st.write("So we determined the parameters of the ARIMA model with a manual grid search:")
 
         code = '''p_values = range(0, 6)
 d_values = range(0, 3)
@@ -316,7 +327,7 @@ print('Best ARIMA%s MAE=%.3f' % (best_params, best_score))
     st.header('Machine learning models')
 
     st.subheader('Naive linear regression')
-    st.image('assets/naive_lin.png')
+    st.image('streamlit_app/assets/naive_lin.png')
 
     with st.expander("See details"):
         st.write('''
@@ -340,7 +351,7 @@ print('Best ARIMA%s MAE=%.3f' % (best_params, best_score))
         ''')
     
     st.subheader('SVM')
-    st.image('assets/svm.png')
+    st.image('streamlit_app/assets/svm.png')
 
     with st.expander("See details"):
         st.write(
@@ -483,7 +494,7 @@ if page == pages[3]:
     
                                             
             
-    st.markdown("<h2 style='text-align: left;'>Select a Country, Sector, Gas and a Year to make your own predictions</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: left;'>Select a Country, Sector, Gas to make your own predictions</h2>", unsafe_allow_html=True)
     # Selection of Dataframe 
             
     #4 columns for 4 buttons 
@@ -1333,7 +1344,7 @@ if page == pages[3]:
         # Plot pie chart of selected datas 
 
         sectors = ['Agriculture', 'Building', 'Bunker Fuels' ,'Electricity/Heat','Fugitive Emissions', 'Industrial Processes','Manufacturing/Construction','Other Fuel Combustion','Transportation', 'Waste']
-    
+
         def show_piechart():
             secteurs = DF[(DF['Sector'].isin(sectors)) &
                                   (DF.index == st.session_state.select_year) & 
@@ -1353,7 +1364,7 @@ if page == pages[3]:
             with col2_viz: 
                 st.pyplot(fig_pie)
 
-        if compute == True:
+        if compute == True and sector in sectors:
             year = st.selectbox('Select a Year to show distribution of emissions',options = range(1990,2020),index=29, key='select_year', on_change = show_piechart) 
         
     if compute == True:
