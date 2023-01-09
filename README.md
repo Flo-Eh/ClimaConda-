@@ -20,6 +20,9 @@ pip install -r requirements.txt
 
 ## Streamlit App
 
+You can access the app by following this link:
+https://flo-eh-climaconda--streamlit-appclimacondav3-jans2h.streamlit.app/
+
 **Add explanations on how to use the app.**
 
 To run the app :
