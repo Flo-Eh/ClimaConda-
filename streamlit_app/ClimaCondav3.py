@@ -61,7 +61,7 @@ if page == pages[0]:
  #Team 
     st.subheader('By Florian Ehre, Michael Laidet & Mai Anh Vu')
  #Picture   
-    st.image('assets/rechauffement.png', width = 1200)
+    st.image('streamlit_app/assets/rechauffement.png', width = 1200)
  #Project description    
     st.write(
         """
@@ -254,7 +254,7 @@ if page == pages[2]:
     """
     )
     
-    st.image('assets/series.png')
+    st.image('streamlit_app/assets/series.png')
 
     st.write(
     """
@@ -279,7 +279,7 @@ if page == pages[2]:
     )
 
     st.header('Statistical model : ARIMA')
-    st.image('assets/arima.png')
+    st.image('streamlit_app/assets/arima.png')
     
     with st.expander("See details"):
         st.write('''
@@ -328,7 +328,7 @@ print('Best ARIMA%s MAE=%.3f' % (best_params, best_score))
         ''')
     
     st.subheader('Linear regression')
-    st.image('assets/linreg.png')
+    st.image('streamlit_app/assets/linreg.png')
 
     with st.expander("See details"):
         st.write('''
@@ -355,7 +355,7 @@ print('Best ARIMA%s MAE=%.3f' % (best_params, best_score))
     st.header('Deep learning models')
 
     st.subheader('Vanilla LSTM')
-    st.image('assets/vanilla_lstm.png')
+    st.image('streamlit_app/assets/vanilla_lstm.png')
 
     with st.expander("See details"):
 
@@ -375,7 +375,7 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
         st.code(code, language='python') 
 
     st.subheader('Stacked LSTM')
-    st.image('assets/stacked_lstm.png')
+    st.image('streamlit_app/assets/stacked_lstm.png')
     
     with st.expander("See details"):
         st.write('''
@@ -396,7 +396,7 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
 
 
     st.subheader('Bidirectional LSTM')
-    st.image('assets/bidirectional.png')
+    st.image('streamlit_app/assets/bidirectional.png')
 
     with st.expander("See details"):
         st.write('''
@@ -415,7 +415,7 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
         st.code(code, language='python') 
 
     st.subheader('CNN LSTM')
-    st.image('assets/cnn_lstm.png')
+    st.image('streamlit_app/assets/cnn_lstm.png')
 
     with st.expander("See details"):
         st.write('''
@@ -438,7 +438,7 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
         st.code(code, language='python') 
 
     st.subheader('Conv SVM')
-    st.image('assets/conv_lstm.png')
+    st.image('streamlit_app/assets/conv_lstm.png')
 
     with st.expander("See details"):
         st.write('''
@@ -460,8 +460,8 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
 
     st.header('Results')
 
-    st.image('assets/results.png')
-    st.image('assets/all_forecasts.png')
+    st.image('streamlit_app/assets/results.png')
+    st.image('streamlit_app/assets/all_forecasts.png')
 
 
 
