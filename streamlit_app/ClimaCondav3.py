@@ -34,12 +34,13 @@ st.set_page_config(page_title="ClimaConda",page_icon='🌍',layout="wide", initi
 #Barre de Navigation 
 st.sidebar.title('Navigation')
 #Différentes pages du site 
-pages = ['Introduction','Data exploration',' Models','Try it yourself !!!' , 'Conclusion']
+pages = ['Introduction','Data exploration','Data Visualization','Problematic & Methodology',' Models','Best model','Try it yourself !!!' , 'Conclusion']
 page = st.sidebar.radio(' ',pages)
 
 #Importation du df sur l'europe 
 df = pd.read_csv('streamlit_app/assets/final_df_UE.csv',index_col = 'year')
 DF = pd.read_csv('streamlit_app/assets/final_df_UE.csv',index_col = 'year')
+df_CW = pd.read_csv('streamlit_app/assets/historical_emissions.csv')
 #df.drop(['Unit','Unnamed: 0'], axis = 1, inplace = True)
 
 
@@ -84,7 +85,7 @@ if page == pages[0]:
     
     
     
-                                                     #Page 2: Data Viz    
+                                                     #Page 2: Data exploration    
         
         
         
@@ -116,15 +117,54 @@ if page == pages[1]:
     st.write(
         """
         To use Climate Watch data for visualization and models, we brought a few transformations : years were transposed to lines, defined as index and converted in datetime format.
-        Useless columns were removed.
+        Useless columns were removed.\n
+        Dataframe before preprocessing:
     
         """)
+    st.dataframe(df_CW.head(10))
+    st.write('Initial DataFrame Shape:', df_CW.shape)
+    st.write(
+        """
+                Dataframe after preprocessing:
     
+        """)
     df_viz = df.sort_values(['year','Country','Sector', 'Gas'])
     st.dataframe(df_viz.head(10))
+    st.write('Final DataFrame Shape:', df_viz.shape)
+    
+    st.subheader(
+        """
+                Missing Values
+    
+        """)
 
-#Dataviz
-    st.header('Data visualization')
+    st.write(
+        """
+        Our dataset is quite simple. There are in total 85 NaN values over 45570 entries which concern exclusively CO2 data of two sectors :
+        """)
+    col1, col2, col3= st.columns([1,4,1])         
+
+    with col2:  
+            
+        st.image('streamlit_app/assets/missing_values.png')
+    st.write(
+        """
+    For Industrial Processes, missing values are encountered only for years 1990 and 1991 : in this case, missing values can be removed and the time series will be studied from 1992.
+
+For Fugitive Emissions, missing values can be found for all years in the dataset :  a case by case analysis should be done to determine how to deal with missing values for each series.
+        """)
+
+    
+                                                         #Page 3: Data Viz   
+        
+               
+        
+        
+        
+if page == pages[2]:  
+#Title
+    st.title('Data Visualization') 
+
 
     st.write(
         """
@@ -232,7 +272,7 @@ if page == pages[1]:
     
     
 
-                                                    #Page 3: Models    
+                                                    #Page 4: Problematic & Methodology    
         
         
         
@@ -240,11 +280,10 @@ if page == pages[1]:
         
         
         
-if page == pages[2]:
+if page == pages[3]:
     #Title
-    st.title('Models') 
+    st.title('Problematic & Methodology') 
 
-    st.header('Problematic')
 
     st.write(
     """
@@ -255,7 +294,15 @@ if page == pages[2]:
     )
     
     st.image('streamlit_app/assets/series.png')
-
+    df_france_tp_co2 = df[(df['Country']== 'France')&(df['Sector']== 'Transportation')&(df['Gas']== 'CO2')].drop(['Country','Sector','Gas'], axis = 1).sort_index()
+    
+    with st.expander("See data"):
+        col1, col2= st.columns(2)         
+        with col1:  
+            st.dataframe(df_france_tp_co2)
+        with col2:
+            st.write('Data shape:',df_france_tp_co2.shape)
+        
     st.write(
     """
     To measure the performance of our models we chose MAE (Mean Absolute Error) which is an indicator of the accuracy of the predictions and is easy to interpret.
@@ -277,10 +324,25 @@ if page == pages[2]:
     5. Calculate forecasts for the next 10 years
     """
     )
-
+                          
+        
+        
+        
+        
+                                                        #Page 5: Models 
+            
+            
+            
+            
+if page == pages[4]:
+    
+    st.title('Models')
+    
+    
+    
     st.header('Series analysis')    
 
-    st.write("The decomposition shows no seasonality and no residual:")
+    st.write("The decomposition shows no seasonality and no residual as our datas are yearly values.")
     st.image('streamlit_app/assets/seasonal_decompose.png', width = 500)
     
     st.header('Statistical model : ARIMA')     
@@ -343,7 +405,7 @@ print('Best ARIMA%s MAE=%.3f' % (best_params, best_score))
 
     with st.expander("See details"):
         st.write('''
-        This model uses emissions of year N-1 to predict emissions or year N. \n
+        This model uses emissions of year N-1 to predict emissions of year N. \n
         - MAE: 0.939
         - RMSE: 1.317
         - MAPE: 0.007
@@ -356,13 +418,19 @@ print('Best ARIMA%s MAE=%.3f' % (best_params, best_score))
     with st.expander("See details"):
         st.write(
             '''
-            This model uses emissions of year N-1 to predict emissions or year N and performs a grid search.\n
+            This model uses emissions of year N-1 to predict emissions of year N and performs a grid search.\n
             - MAE: 0.934
             - RMSE: 1.239
             - MAPE: 0.007
             - r2: -0.072
             ''')
-
+    
+    
+    
+    
+    
+ 
+    
     st.header('Deep learning models')
 
     st.subheader('Vanilla LSTM')
@@ -468,11 +536,21 @@ model.add(Dense(1))
 model.compile(optimizer='adam', loss='mean_absolute_error')
         '''
         st.code(code, language='python') 
-
+        
+        
     st.header('Results')
-
-    st.image('streamlit_app/assets/results.png')
     st.image('streamlit_app/assets/all_forecasts.png')
+    col1, col2, col3= st.columns([1,4,1])         
+
+    with col2:                
+        st.image('streamlit_app/assets/results.png')
+
+        
+
+    
+
+
+    
 
 
 
@@ -482,7 +560,7 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
     
 
 
-                                                    #Page 4: Try it yourself    
+                                                    #Page 8: Try it yourself    
         
       
         
@@ -490,7 +568,7 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
         
         
         
-if page == pages[3]:
+if page == pages[6]:
     
                                             
             
@@ -1531,7 +1609,7 @@ if page == pages[3]:
                     dl.cnn_model_visualisation()
         
 
-if page == pages[4]:
+if page == pages[7]:
     st.title('Conclusion') 
     st.write(
         """
