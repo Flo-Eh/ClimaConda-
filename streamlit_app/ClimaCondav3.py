@@ -146,7 +146,7 @@ if page == pages[1]:
 
     with col2:  
             
-        st.image('streamlit_app/assets/missing_values.png')
+        st.image('streamlit_app/assets/missing_values.PNG')
     st.write(
         """
     For Industrial Processes, missing values are encountered only for years 1990 and 1991 : in this case, missing values can be removed and the time series will be studied from 1992.
