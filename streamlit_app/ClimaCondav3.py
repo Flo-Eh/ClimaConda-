@@ -34,7 +34,7 @@ st.set_page_config(page_title="ClimaConda",page_icon='🌍',layout="wide", initi
 #Barre de Navigation 
 st.sidebar.title('Navigation')
 #Différentes pages du site 
-pages = ['Introduction','Data exploration','Data Visualization','Problematic & Methodology',' Models','Best model','Try it yourself !!!' , 'Conclusion']
+pages = ['Introduction','Data exploration','Data Visualization','Problematic & Methodology',' Results','Try it yourself !!!' , 'Conclusion']
 page = st.sidebar.radio(' ',pages)
 
 #Importation du df sur l'europe 
@@ -282,7 +282,7 @@ if page == pages[2]:
         
 if page == pages[3]:
     #Title
-    st.title('Problematic & Methodology') 
+    st.header('Problematic') 
 
 
     st.write(
@@ -313,7 +313,7 @@ if page == pages[3]:
     )
 
     st.header('Methodology')
-
+    st.subheader('Machine Learning & ARIMA')
     st.write(
     """
     For all the models, we proceeded with the following steps:
@@ -324,8 +324,65 @@ if page == pages[3]:
     5. Calculate forecasts for the next 10 years
     """
     )
-                          
+    st.subheader('Deep Learning ')                      
+    st.write(""" We chose Recurrent Neural Network (RNN) models - LSTM more specifically - as they are particularly adapted to sequential data such as time series.\n
+    1. Split our data into train and test datasets, using 20% of the data for test
+    2. prepare our univariate series so that it can be used as input for the models. To do so we used the following function:
+ """)
+    code0 = '''def split_sequence(sequence, n_steps):
+	X, y = list(), list()
+	for i in range(len(sequence)):
+		# find the end of this pattern
+		end_ix = i + n_steps
+		# check if we are beyond the sequence
+		if end_ix > len(sequence)-1:
+			break
+		# gather input and output parts of the pattern
+		seq_x, seq_y = sequence[i:end_ix], sequence[end_ix]
+		X.append(seq_x)
+		y.append(seq_y)
+	return array(X), array(y)                
+                    '''        
+    st.code(code0, language='python') 
+
+    
+    X_train = df_france_tp_co2.head(24)
+    raw_seq = X_train.values.tolist()
+    
+    def split_sequence(sequence, n_steps):
+        X, y = list(), list()
+        for i in range(len(sequence)):
+            # find the end of this pattern
+            end_ix = i + n_steps
+            # check if we are beyond the sequence
+            if end_ix > len(sequence)-1:
+                break
+            # gather input and output parts of the pattern
+            seq_x, seq_y = sequence[i:end_ix], sequence[end_ix]
+            X.append(seq_x)
+            y.append(seq_y)
+        return array(X), array(y)
+    col1 , col2 = st.columns(2)
+    
+    n_steps = 3
+    X, y = split_sequence(raw_seq, n_steps)
+    with col1:
+        st.write('Time series before split_sequence')
+        st.dataframe(raw_seq)
+    with col2:
+        st.write('Time series after split_sequence')
+        dfx = pd.DataFrame(list(map(np.ravel, X)),columns = ['n_steps_1','n_steps_2','n_steps_3'])
+        dfy = pd.DataFrame(data = y, columns = ['y'])
+        split = pd.concat([dfx,dfy], axis = 1)
+        st.dataframe(split)
         
+    st.write("""
+    3. Train the model on the train dataset \n
+    All models final layer will have 1 neuron, corresponding to the next year (t+1) emission prediction. This value is then added in our time series and used for the next prediction (t+2) with a loop and so on.\n
+    4. Make predictions on the test dataset and measure the performance of these predictions
+    5. Train the model on the entire dataset
+    6. Calculate forecasts for the next 10 years""")
+
         
         
         
@@ -336,7 +393,7 @@ if page == pages[3]:
             
 if page == pages[4]:
     
-    st.title('Models')
+    st.title('Results')
     
     
     
@@ -384,7 +441,18 @@ print('Best ARIMA%s MAE=%.3f' % (best_params, best_score))
                     '''
         
         st.code(code, language='python') 
+        
+    st.subheader('ARIMAX')  
 
+    st.image('streamlit_app/assets/arimax.png')
+
+    with st.expander("See details"):
+        st.write('''
+        - MAE: 0.629
+        - RMSE: 0.840
+        - MAPE: 0.005
+        - r2: 0.508
+        These results were obtained with ARIMAX(0, 2, 4)''')
 
     st.header('Machine learning models')
 
@@ -439,10 +507,10 @@ print('Best ARIMA%s MAE=%.3f' % (best_params, best_score))
     with st.expander("See details"):
 
         st.write( '''
-            - MAE: 1.202
-            - RMSE: 1.461
-            - MAPE: 0.01
-            - r2: -0.489
+            - MAE: 9.181
+            - RMSE: 9.381
+            - MAPE: 0.072
+            - r2: -60.393
             ''')
 
         code = '''n_steps = 3
@@ -458,10 +526,10 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
     
     with st.expander("See details"):
         st.write('''
-        - MAE: 1.174
-        - RMSE: 1.413
-        - MAPE: 0.009
-        - r2: -0.394
+        - MAE: 1.843
+        - RMSE: 2.219
+        - MAPE: 0.015
+        - r2: -2.434
         ''')
 
         code = '''n_steps = 3
@@ -479,10 +547,10 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
 
     with st.expander("See details"):
         st.write('''
-        - MAE: 7.208
-        - RMSE: 7.328
-        - MAPE: 0.057
-        - r2: -36.471
+        - MAE: 4.328
+        - RMSE: 4.519
+        - MAPE: 0.034
+        - r2: -13.246
         ''')
 
         code = '''n_steps = 3
@@ -498,10 +566,10 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
 
     with st.expander("See details"):
         st.write('''
-        - MAE: 6.08
-        - RMSE: 6.282
-        - MAPE: 0.048
-        - r2: -26.529
+        - MAE: 1.505
+        - RMSE: 1.882
+        - MAPE: 0.012
+        - r2: -1.471
         ''')
         code = '''n_steps =4
 n_seq = 2
@@ -521,10 +589,10 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
 
     with st.expander("See details"):
         st.write('''
-        - MAE: 3.635
-        - RMSE: 3.892
-        - MAPE: 0.029
-        - r2: -9.57
+        - MAE: 7.494
+        - RMSE: 7.714
+        - MAPE: 0.059
+        - r2: -40.515
         ''')
         code = '''n_steps =4
 n_seq = 2
@@ -538,7 +606,7 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
         st.code(code, language='python') 
         
         
-    st.header('Results')
+    st.header('Models Comparison')
     st.image('streamlit_app/assets/all_forecasts.png')
     col1, col2, col3= st.columns([1,4,1])         
 
@@ -560,7 +628,7 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
     
 
 
-                                                    #Page 8: Try it yourself    
+                                                    #Page 6: Try it yourself    
         
       
         
@@ -568,7 +636,7 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
         
         
         
-if page == pages[6]:
+if page == pages[5]:
     
                                             
             
@@ -1609,7 +1677,9 @@ if page == pages[6]:
                     dl.cnn_model_visualisation()
         
 
-if page == pages[7]:
+                                                #Conclusion
+        
+if page == pages[6]:
     st.title('Conclusion') 
     st.write(
         """
