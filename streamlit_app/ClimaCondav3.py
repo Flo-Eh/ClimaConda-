@@ -402,8 +402,10 @@ if page == pages[4]:
     st.write("The decomposition shows no seasonality and no residual as our datas are yearly values.")
     st.image('streamlit_app/assets/seasonal_decompose.png', width = 500)
     
-    st.header('Statistical model : ARIMA')     
+    st.header('Statistical model')     
 
+    st.subheader('ARIMA')
+    
     st.image('streamlit_app/assets/arima.png')
     
     with st.expander("See details"):
@@ -584,7 +586,7 @@ model.compile(optimizer='adam', loss='mean_absolute_error')
         '''
         st.code(code, language='python') 
 
-    st.subheader('Conv SVM')
+    st.subheader('Conv LSTM')
     st.image('streamlit_app/assets/conv_lstm.png')
 
     with st.expander("See details"):
