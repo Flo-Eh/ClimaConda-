@@ -445,16 +445,22 @@ print('Best ARIMA%s MAE=%.3f' % (best_params, best_score))
         st.code(code, language='python') 
         
     st.subheader('ARIMAX')  
-
+    
+    st.write('We used the total distance traveled by vehicles as exogenous variable and ARIMA to predict its evolution')
     st.image('streamlit_app/assets/arimax.png')
 
     with st.expander("See details"):
-        st.write('''
-        - MAE: 0.629
-        - RMSE: 0.840
-        - MAPE: 0.005
-        - r2: 0.508
-        These results were obtained with ARIMAX(0, 2, 4)''')
+        
+        col1, col2, col3 = st.columns([3,2,2])
+        with col1:
+            
+            st.image('streamlit_app/assets/heatmap_arimax.png')
+            st.write('''
+            - MAE: 0.629
+            - RMSE: 0.840
+            - MAPE: 0.005
+            - r2: 0.508
+            These results were obtained with ARIMAX(0, 2, 4)''')
 
     st.header('Machine learning models')
 
@@ -462,6 +468,7 @@ print('Best ARIMA%s MAE=%.3f' % (best_params, best_score))
     st.image('streamlit_app/assets/naive_lin.png')
 
     with st.expander("See details"):
+        
         st.write('''
         This model simply uses the years as feature.\n
         - MAE: 5.441
