@@ -34,7 +34,7 @@ st.set_page_config(page_title="ClimaConda",page_icon='🌍',layout="wide", initi
 #Barre de Navigation 
 st.sidebar.title('Navigation')
 #Différentes pages du site 
-pages = ['Introduction','Data exploration','Data Visualization','Problematic & Methodology',' Results','Try it yourself !!!' , 'Conclusion']
+pages = ['Introduction','Data exploration','Data Visualization','Issue & Methodology',' Results','Try it yourself !!!' , 'Conclusion']
 page = st.sidebar.radio(' ',pages)
 
 #Importation du df sur l'europe 
@@ -282,7 +282,7 @@ if page == pages[2]:
         
 if page == pages[3]:
     #Title
-    st.header('Problematic') 
+    st.header('Issue') 
 
 
     st.write(
