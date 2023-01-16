@@ -34,7 +34,7 @@ st.set_page_config(page_title="ClimaConda",page_icon='🌍',layout="wide", initi
 #Barre de Navigation 
 st.sidebar.title('Navigation')
 #Différentes pages du site 
-pages = ['Introduction','Data exploration','Data Visualization','Issue & Methodology',' Results','Try it yourself !!!' , 'Conclusion']
+pages = ['Introduction','Data exploration','Data Visualization','Issue & Methodology',' Results','Try it yourself !!!' , 'Conclusion & Outlook']
 page = st.sidebar.radio(' ',pages)
 
 #Importation du df sur l'europe 
@@ -1696,9 +1696,10 @@ if page == pages[6]:
         Whereas ARIMA and machine learning models have regular performances when they are run several times, we observed that the performances of the deep learning models were quite erratic.
         
 	Deep learning models are probably not the best choice for our problematic for several reasons:
-	- they are time consuming to implement as there is no grid search function
-	- the parameters used for one series might not be adapted for the others
-	- they are not performant or robust with so few data
+	
+	They are time consuming to implement as there is no grid search function
+	The parameters used for one series might not be adapted for the others
+	They are not performant or robust with so few data
 
 	The limited size of our dataset was the main difficulty in our project: publication of emissions data is quite recent and uses to be on a yearly basis. For France, monthly data are only available since 2019.
              
@@ -1706,5 +1707,9 @@ if page == pages[6]:
         """
     )
     st.subheader('Outlook') 
-
+    st.write(
+	    """
+	    We could create a more advanced model that takes into account other exogenous variables such as ecological awareness, the effect of pandemics and conflicts, energy restrictions and the limit of natural resources.
+	    """
+    )
     
