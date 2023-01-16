@@ -1711,7 +1711,7 @@ if page == pages[6]:
     st.subheader('Outlook') 
     st.write(
         """
-        We can focus on one sector and find monthly data tu have more robust models and try SARIMA/SARIMAX model\n
+        We can focus on one sector and find monthly data to have more robust models and try SARIMA/SARIMAX model\n
        We could create a more advanced model that takes into account other exogenous variables such as ecological awareness, the effect of pandemics and conflicts, energy restrictions and the limit of natural resources.
        """
     )
