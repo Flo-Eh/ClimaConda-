@@ -916,7 +916,7 @@ if page == pages[5]:
                 
                 plt.plot(X_test.index.year, y_pred, '--', color = colors[i], label = f'prediction for {name}')
                 plt.plot(range(2020,2031), forecasts, '-', color = colors[i], label =  f'forecasts for {name}')
-                plt.plot(range(2020,2031), forecasts, label =  f'forecasts for {name}')
+                #plt.plot(range(2020,2031), forecasts, label =  f'forecasts for {name}')
                 
 
             handles, labels = ax.get_legend_handles_labels()
