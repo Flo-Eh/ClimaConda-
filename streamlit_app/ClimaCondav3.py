@@ -1705,6 +1705,6 @@ if page == pages[6]:
 	
         """
     )
-     st.subheader('Outlook') 
+    st.subheader('Outlook') 
 
     
