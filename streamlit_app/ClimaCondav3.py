@@ -1698,21 +1698,21 @@ if page == pages[6]:
     )    
     st.write(
         """
-	Deep learning models are probably not the best choice for our problematic for several reasons:
-		
-	They are time consuming to implement as there is no grid search function
-	The parameters used for one series might not be adapted for the others
-	They are not performant or robust with so few data
+    Deep learning models are probably not the best choice for our problematic for several reasons:
+
+    They are time consuming to implement as there is no grid search function
+    The parameters used for one series might not be adapted for the others
+    They are not performant or robust with so few data
 
     The limited size of our dataset was the main difficulty in our project: publication of emissions data is quite recent and uses to be on a yearly basis. For France, monthly data are only available since 2019.    
-	
+
         """
     )
     st.subheader('Outlook') 
     st.write(
-	    """
-	    We can focus on one sector and find monthly data tu have more robust models and try SARIMA/SARIMAX model\n
-	    We could create a more advanced model that takes into account other exogenous variables such as ecological awareness, the effect of pandemics and conflicts, energy restrictions and the limit of natural resources.
-	    """
+        """
+        We can focus on one sector and find monthly data tu have more robust models and try SARIMA/SARIMAX model\n
+       We could create a more advanced model that takes into account other exogenous variables such as ecological awareness, the effect of pandemics and conflicts, energy restrictions and the limit of natural resources.
+       """
     )
     
