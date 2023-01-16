@@ -1689,19 +1689,22 @@ if page == pages[5]:
                                                 #Conclusion
         
 if page == pages[6]:
-    st.title('Conclusion') 
+    st.title('Conclusion & Outlook') 
+    st.subheader('Conclusion')
     st.write(
         """
         Whereas ARIMA and machine learning models have regular performances when they are run several times, we observed that the performances of the deep learning models were quite erratic.
         
-        Indeed, deep learning models require a lot of data to perform well.
-        
-        The limited size of our dataset was the main difficulty in our project: publication of emissions data is quite recent and uses to be on a yearly basis.
-        For France, monthly data are only available since 2019. 
+	Deep learning models are probably not the best choice for our problematic for several reasons:
+	- they are time consuming to implement as there is no grid search function
+	- the parameters used for one series might not be adapted for the others
+	- they are not performant or robust with so few data
 
-        Unfortunately, data augmentation and transfer learning are cdat an early stage for time series.
-        
+	The limited size of our dataset was the main difficulty in our project: publication of emissions data is quite recent and uses to be on a yearly basis. For France, monthly data are only available since 2019.
+             
+	
         """
     )
+     st.subheader('Outlook') 
 
     
