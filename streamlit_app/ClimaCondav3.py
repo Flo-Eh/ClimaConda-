@@ -1694,7 +1694,10 @@ if page == pages[6]:
     st.write(
         """
         Whereas ARIMA and machine learning models have regular performances when they are run several times, we observed that the performances of the deep learning models were quite erratic.
-        
+        """
+    )    
+    st.write(
+        """
 	Deep learning models are probably not the best choice for our problematic for several reasons:
 		
 	They are time consuming to implement as there is no grid search function
