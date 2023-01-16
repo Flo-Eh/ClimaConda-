@@ -23,16 +23,16 @@ pip install -r requirements.txt
 You can access the app by following this link:
 https://flo-eh-climaconda--streamlit-appclimacondav3-jans2h.streamlit.app/
 
-**Add explanations on how to use the app.**
+
 
 To run the app :
 
 ```shell
 cd streamlit_app
-conda create --name my-awesome-streamlit python=3.9
-conda activate my-awesome-streamlit
+conda create --name appclimacondav3 python=3.9
+conda activate appclimacondav3
 pip install -r requirements.txt
-streamlit run app.py
+streamlit run climacondav5.py
 ```
 
 The app should then be available at [localhost:8501](http://localhost:8501).
