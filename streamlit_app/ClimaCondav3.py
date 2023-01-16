@@ -1704,7 +1704,7 @@ if page == pages[6]:
 	The parameters used for one series might not be adapted for the others
 	They are not performant or robust with so few data
 
-        The limited size of our dataset was the main difficulty in our project: publication of emissions data is quite recent and uses to be on a yearly basis. For France, monthly data are only available since 2019.    
+    The limited size of our dataset was the main difficulty in our project: publication of emissions data is quite recent and uses to be on a yearly basis. For France, monthly data are only available since 2019.    
 	
         """
     )
